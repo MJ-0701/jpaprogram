@@ -15,13 +15,18 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class User {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql , mariadb
-//    private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
+
     private String email;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
 }
