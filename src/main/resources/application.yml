@@ -1,7 +1,12 @@
 spring:
-  h2:
-    console:
-      enabled: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create-drop
 
   datasource:
 #    driver-class-name: org.h2.Driver
@@ -9,15 +14,5 @@ spring:
     username: root
     password: root
 
-
-
-jpa:
-  show-sql: true
-  properties:
-    hibernate:
-      format_sql: true
-  generate-ddl: false
-  hibernate:
-    ddl-auto: create-drop
 server:
   port: 8080
