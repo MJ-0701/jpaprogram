@@ -1,15 +1,29 @@
 spring:
-  h2:
-    console:
-      enabled: true
+
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    hikari:
+#      jdbc-url: jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
+
+
   jpa:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
-    generate-ddl: false
+        format_sql: true # 콘솔에서 sql 문이 좀더 보기 좋게 나오게 해줌.
+    generate-ddl: true
+
+# mysql db
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useSSl=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
 
 
+# maria db
 #  datasource:
 #    url: jdbc:mariadb://localhost:3306/test?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
 #    username: root
