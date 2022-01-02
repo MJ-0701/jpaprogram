@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,10 +29,19 @@ class UserRepositoryTest {
 //        * }*/
 //    }
 
+//    @Test
+//    void crud(){
+////        List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
+//        List<User> users = userRepository.findAllById(Lists.newArrayList(1L,3L,5L)); // 5 7 9 번 아이디 가져오기
+//        users.forEach(System.out::println);
+//    }
+
     @Test
     void crud(){
-//        List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
-        List<User> users = userRepository.findAllById(Lists.newArrayList(1L,3L,5L)); // 5 7 9 번 아이디 가져오기
-        users.forEach(System.out::println);
+        userRepository.save(new User(6L,"newMj","jack2718@naver.com",LocalDateTime.now(),null));
+
+        userRepository.flush(); // saveAndFlush 와 같음.
+
+        userRepository.findAll().forEach(System.out::println);
     }
 }
