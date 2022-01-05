@@ -77,6 +77,19 @@ class UserRepositoryTest {
 
         Example<User> example = Example.of(new User("ma", "naver.com"), matcher); // like %'naver.com'% ==> name 컬럼은 where 조건절에 들어가지 않고 email 값만 like로 찾음.
         userRepository.findAll(example).forEach(System.out::println);
-
     }
+
+    @Test
+    void updateQuery(){
+        userRepository.save(new User("mjmj", "coaudwjd@gmail.com"));
+
+        User user = userRepository.findById(5L).orElseThrow(RuntimeException::new);
+
+        user.setEmail("coaduwjd@google.com");
+
+        userRepository.save(user);
+
+        userRepository.findAll().forEach(System.out::println);
+    }
+
 }
