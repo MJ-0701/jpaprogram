@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class User {
 
@@ -20,8 +21,10 @@ public class User {
     @Id
     private Long id;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String email;
 
     private LocalDateTime createdAt;
