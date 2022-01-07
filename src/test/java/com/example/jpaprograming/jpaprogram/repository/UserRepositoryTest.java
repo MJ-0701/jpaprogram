@@ -80,43 +80,45 @@ class UserRepositoryTest {
         userRepository.findAll(example).forEach(System.out::println);
     }
 
-    @Test
-    void updateQuery(){
-        userRepository.save(new User("mjmj", "coaudwjd@gmail.com"));
-
-        User user = userRepository.findById(5L).orElseThrow(RuntimeException::new);
-
-        user.setEmail("coaduwjd@google.com");
-
-        userRepository.save(user);
-
-        userRepository.findAll().forEach(System.out::println);
-    }
+//    @Test
+//    void updateQuery(){
+//        userRepository.save(new User("mjmj", "coaudwjd@gmail.com"));
+//
+//        User user = userRepository.findById(5L).orElseThrow(RuntimeException::new);
+//
+//        user.setEmail("coaduwjd@google.com");
+//
+//        userRepository.save(user);
+//
+//        userRepository.findAll().forEach(System.out::println);
+//    }
 
     @Test
     void select(){
+
+        System.out.println("find by id :" + userRepository.findById(1L));
         // and 조건절
-//        System.out.println("and :" + userRepository.findByEmailAndName("jack2718@naver.com","채명정"));
+        System.out.println("and :" + userRepository.findByEmailAndName("jack2718@naver.com","채명정"));
 
         // or 조건절
-//        System.out.println("or :" + userRepository.findByEmailOrName("jack2718@naver.com", "jack"));
+        System.out.println("or :" + userRepository.findByEmailOrName("jack2718@naver.com", "jack"));
 
         // 시간에 대한 조건(값비교)
         // after
-//        System.out.println("after :" + userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L))); // 어제 이후의 값 => 5개
+        System.out.println("after :" + userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L))); // 어제 이후의 값 => 5개
 
         // before
-//        System.out.println("before :" + userRepository.findByCreatedAtBefore(LocalDateTime.now().minusDays(1L))); // 어제 이전의 값 => 0개
+        System.out.println("before :" + userRepository.findByCreatedAtBefore(LocalDateTime.now().minusDays(1L))); // 어제 이전의 값 => 0개
 
         // 값 비교
         // GreaterThan LessThan -> before after 와 차이점 : equal 지원여부
-//        System.out.println("greaterthan :" + userRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
+        System.out.println("greaterthan :" + userRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
 
-//        System.out.println("id greaterthan :" + userRepository.findByIdGreaterThan(4L)); // 기대값 5
+        System.out.println("id greaterthan :" + userRepository.findByIdGreaterThan(4L)); // 기대값 5
 
-//        System.out.println("id :" + userRepository.findByIdGreaterThanEqual(4L)); // 기대값 4,5
+        System.out.println("id :" + userRepository.findByIdGreaterThanEqual(4L)); // 기대값 4,5
 
-//        System.out.println("id :" + userRepository.findByIdLessThan(4L)); // 기대값 1,2,3
+        System.out.println("id :" + userRepository.findByIdLessThan(4L)); // 기대값 1,2,3
 
         //between
         System.out.println("between :" + userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L), LocalDateTime.now().plusDays(1L))); // 어제와 내일 사이 -> 오늘 -> 5개
