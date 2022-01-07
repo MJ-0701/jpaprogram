@@ -1,6 +1,7 @@
 package com.example.jpaprograming.jpaprogram.repository;
 
 import com.example.jpaprograming.jpaprogram.domain.User;
+import org.apache.tomcat.jni.Local;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +92,38 @@ class UserRepositoryTest {
 
         userRepository.findAll().forEach(System.out::println);
     }
+
+    @Test
+    void select(){
+        // and 조건절
+//        System.out.println("and :" + userRepository.findByEmailAndName("jack2718@naver.com","채명정"));
+
+        // or 조건절
+//        System.out.println("or :" + userRepository.findByEmailOrName("jack2718@naver.com", "jack"));
+
+        // 시간에 대한 조건(값비교)
+        // after
+//        System.out.println("after :" + userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L))); // 어제 이후의 값 => 5개
+
+        // before
+//        System.out.println("before :" + userRepository.findByCreatedAtBefore(LocalDateTime.now().minusDays(1L))); // 어제 이전의 값 => 0개
+
+        // 값 비교
+        // GreaterThan LessThan -> before after 와 차이점 : equal 지원여부
+//        System.out.println("greaterthan :" + userRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
+
+//        System.out.println("id greaterthan :" + userRepository.findByIdGreaterThan(4L)); // 기대값 5
+
+//        System.out.println("id :" + userRepository.findByIdGreaterThanEqual(4L)); // 기대값 4,5
+
+//        System.out.println("id :" + userRepository.findByIdLessThan(4L)); // 기대값 1,2,3
+
+        //between
+        System.out.println("between :" + userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L), LocalDateTime.now().plusDays(1L))); // 어제와 내일 사이 -> 오늘 -> 5개
+
+        System.out.println("id between :" + userRepository.findByIdBetween(1L, 3L)); // 1,3 사이 -> 2 => 1,2,3 이 나옴. -> between 은 양 끝값을 포함.
+
+    }
+
 
 }
