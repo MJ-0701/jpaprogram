@@ -40,7 +40,7 @@ class UserRepositoryTest {
 
     @Test
     void crud(){
-        userRepository.save(new User(6L,"newMj","jack2718@naver.com",LocalDateTime.now(),null));
+        userRepository.save(new User(6L,"newMj","jack2718@naver.com",LocalDateTime.now(),null,null));
 
         userRepository.flush(); // saveAndFlush 와 같음.
 
@@ -125,7 +125,57 @@ class UserRepositoryTest {
 
         System.out.println("id between :" + userRepository.findByIdBetween(1L, 3L)); // 1,3 사이 -> 2 => 1,2,3 이 나옴. -> between 은 양 끝값을 포함.
 
+        // 빈값
+        System.out.println("is not null :" + userRepository.findByIdIsNotNull());
+
+        System.out.println("is not empty :" + userRepository.findByAddressesIsNotEmpty());
+
+        // 인절
+        System.out.println("find by name in :" + userRepository.findByNameIn(Lists.newArrayList("채명정","mj","jack")));
+
+
+        // like
+        System.out.println("starting with :" + userRepository.findByNameStartingWith("채"));
+
+        System.out.println("ending with :" + userRepository.findByNameEndingWith("정"));
+
+        System.out.println("contains :" + userRepository.findByNameContains("명정"));
+
+        System.out.println("like : " + userRepository.findByNameLike("%명%")); // 양방향 %는 contains와 동일 앞에 %는 startingwith 뒤는 endingwith
     }
+
+    @Test
+    void sorting(){
+        System.out.println("top1 by name :" + userRepository.findTop1ByName("채명정")); // 앞에서 첫번쨰 & 숫자1은 생략 가능.
+
+        System.out.println("last1 by name :" + userRepository.findLast1ByName("채명정")); // 의도한 결과값이 아닌 findbyname이 동작
+
+        System.out.println("desc :" + userRepository.findTop1ByNameOrderByIdDesc("채명정")); // 역순
+
+        System.out.println("top2 by name :" + userRepository.findTop2ByName("채명정")); // 쿼리 리미트값에 2가 들어감. -> 순서대로 2개가 출력됨.
+
+        System.out.println("id desc email asc :" + userRepository.findFirstByNameOrderByIdDescEmailAsc("채명정")); // name 처럼 같은 값이 있는 경우 두번쨰 지정한 조건으로  추가 정렬을 통해서 값을 가져와야함.
+
+        System.out.println("sort1:" + userRepository.findFirstByName("채명정", Sort.by(Sort.Order.desc("id")))); // id를 기준으로 desc
+
+        System.out.println("sort2 :" + userRepository.findFirstByName("채명정", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email")))); // id 역순 메일 정순 메서드와 동
+
+        System.out.println("가독성 :" + userRepository.findFirstByName("채명정", getSort()));
+    }
+
+    private Sort getSort(){
+        return Sort.by(Sort.Order.desc("id"),
+                Sort.Order.asc("email"),
+                Sort.Order.desc("createdAt"),
+                Sort.Order.asc("updatedAt"));
+    }
+
+    @Test
+    void pagingAndSorting(){
+        System.out.println("paging :" + userRepository.findByName("채명정", PageRequest.of(0,2,getSort())).getTotalPages()); // 첫번째 페이지 / 1페이지에 하나 / 정렬
+    }
+
+
 
 
 }
