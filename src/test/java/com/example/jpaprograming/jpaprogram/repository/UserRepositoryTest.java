@@ -1,5 +1,6 @@
 package com.example.jpaprograming.jpaprogram.repository;
 
+import com.example.jpaprograming.jpaprogram.domain.Gender;
 import com.example.jpaprograming.jpaprogram.domain.User;
 import org.apache.tomcat.jni.Local;
 import org.assertj.core.util.Lists;
@@ -40,7 +41,7 @@ class UserRepositoryTest {
 
     @Test
     void crud(){
-        userRepository.save(new User(6L,"newMj","jack2718@naver.com",LocalDateTime.now(),null,null));
+//        userRepository.save(new User(6L,"newMj","jack2718@naver.com",LocalDateTime.now(),null,Gender.MALE,null,null));
 
         userRepository.flush(); // saveAndFlush 와 같음.
 
@@ -173,6 +174,33 @@ class UserRepositoryTest {
     @Test
     void pagingAndSorting(){
         System.out.println("paging :" + userRepository.findByName("채명정", PageRequest.of(0,2,getSort())).getTotalPages()); // 첫번째 페이지 / 1페이지에 하나 / 정렬
+    }
+
+    @Test
+    void insertAndUpdate(){
+        User user = new User();
+        // insert
+        user.setName("채명정");
+        user.setEmail("jack2718@hanmail.net");
+        userRepository.save(user);
+
+        // update
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("채mj");
+        userRepository.save(user2);
+
+
+    }
+
+    @Test
+    void enumTest(){
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setGender(Gender.MALE);
+        userRepository.save(user);
+
+        userRepository.findAll().forEach(System.out::println);
+
+        System.out.println(userRepository.findRowRecord().get("gender"));
     }
 
 
