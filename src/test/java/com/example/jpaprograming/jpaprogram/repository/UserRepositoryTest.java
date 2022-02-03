@@ -203,6 +203,46 @@ class UserRepositoryTest {
         System.out.println(userRepository.findRowRecord().get("gender"));
     }
 
+    @Test
+    void listener(){
+        User user = new User();
+        user.setEmail("newemail1@naver.com");
+        user.setName("jack");
+
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+
+        user2.setName("채채명정");
+
+        userRepository.save(user2);
+
+        userRepository.deleteById(4L);
+    }
+
+    @Test
+    void prePersistTest(){
+        User user = new User();
+        user.setEmail("jack27182@naver.com");
+        user.setName("채명정");
+//        user.setCreatedAt(LocalDateTime.now());
+//        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+
+        System.out.println(userRepository.findByEmail("jack27182@naver.com"));
+    }
+
+    @Test
+    void preUpdateTest(){
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        System.out.println("as-is :" + user);
+
+        user.setName("jack27182");
+        userRepository.save(user);
+
+        System.out.println("to-be : " + userRepository.findAll().get(0));
+    }
+
 
 
 
