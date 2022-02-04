@@ -1,19 +1,26 @@
-package com.example.jpaprograming.jpaprogram.domain;
+package com.example.jpaprograming.bookmanager.domain;
 
+import com.example.jpaprograming.bookmanager.domain.listener.Auditable;
+import com.example.jpaprograming.bookmanager.domain.listener.UserEntityListener;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@EntityListeners(value = EntityListener.class)
+@EntityListeners(value = {UserEntityListener.class})
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "user", indexes = @Index(columnList = "name"), uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
-public class User implements Auditable {
+public class User extends BaseEntity implements Auditable {
 
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +35,13 @@ public class User implements Auditable {
     @NonNull
     private String email;
 
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column
-    private LocalDateTime updatedAt;
+//    @Column(updatable = false)
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+//    @Column
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING) // default ORDINAL 인데 ORDINAL 로 하게되면 ENUM 값이 추가되거나 자리가 바뀌게 되면 INDEX 순서가 바귀므로
     // 잠재적인 버그 요소가 될 수 있다. 그렇기 떄문에 반드시 STRING 으로 지정 해야한다.

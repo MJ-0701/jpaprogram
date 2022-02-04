@@ -1,8 +1,6 @@
-package com.example.jpaprograming.jpaprogram.domain;
+package com.example.jpaprograming.bookmanager.domain;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
 

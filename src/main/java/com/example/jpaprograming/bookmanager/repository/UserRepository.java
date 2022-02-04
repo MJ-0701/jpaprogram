@@ -1,6 +1,6 @@
-package com.example.jpaprograming.jpaprogram.repository;
+package com.example.jpaprograming.bookmanager.repository;
 
-import com.example.jpaprograming.jpaprogram.domain.User;
+import com.example.jpaprograming.bookmanager.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

@@ -1,4 +1,4 @@
-package com.example.jpaprograming.jpaprogram.domain;
+package com.example.jpaprograming.bookmanager.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
