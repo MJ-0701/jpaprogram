@@ -14,7 +14,8 @@ class BookRepositoryTest {
     void bookTest(){
         Book book = new Book();
         book.setBookName("JPA 기초");
-        book.setAuthor("채명정");
+        book.setAuthorId(1L);
+        book.setPublisherId(1L);
 
         bookRepository.save(book);
 

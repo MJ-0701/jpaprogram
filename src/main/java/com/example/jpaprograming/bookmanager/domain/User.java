@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "user", indexes = @Index(columnList = "name"), uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
-public class User extends BaseEntity implements Auditable {
+public class User extends BaseEntity{
 
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

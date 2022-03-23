@@ -5,12 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 //@EntityListeners(value = AuditingEntityListener.class)
 @Entity
@@ -18,31 +14,25 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class Book extends BaseEntity implements Auditable {
+public class Book extends BaseEntity{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String bookName;
 
-    private String author;
+    private String category;
 
-//    @Column(updatable = false)
-//    @CreatedDate
-//    private LocalDateTime createdAt;
-//
-//    @LastModifiedDate
-//    private LocalDateTime updatedAt;
+    private Long authorId;
 
-//    @PrePersist
-//    public void prePersist(){
-//        this.createdAt = LocalDateTime.now();
-//        this.updatedAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    public void preUpdate(){
-//        this.updatedAt = LocalDateTime.now();
-//    }
+    private Long publisherId;
+
+    @OneToOne(mappedBy = "book")
+    @ToString.Exclude // 안할시 stackoverflow 에러 발생 -> 엔티티 릴레이션을 사용하는 경우 특히 toString 같은 메소드는 순환 참조가 걸리게 되는데 특별히 필요한 경우가 아니라면 릴레이션은 단반향으로 걸거나 투스트링에서 제외 하는 처리가 필요함.
+    private BookReviewInfo bookReviewInfo;
+
+
+
+
 }
