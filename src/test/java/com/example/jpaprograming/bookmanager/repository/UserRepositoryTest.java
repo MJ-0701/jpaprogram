@@ -2,6 +2,7 @@ package com.example.jpaprograming.bookmanager.repository;
 
 import com.example.jpaprograming.bookmanager.domain.Gender;
 import com.example.jpaprograming.bookmanager.domain.User;
+import com.example.jpaprograming.bookmanager.domain.UserHistory;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
@@ -129,7 +131,7 @@ class UserRepositoryTest {
         // 빈값
         System.out.println("is not null :" + userRepository.findByIdIsNotNull());
 
-        System.out.println("is not empty :" + userRepository.findByAddressesIsNotEmpty());
+//        System.out.println("is not empty :" + userRepository.findByAddressesIsNotEmpty());
 
         // 인절
         System.out.println("find by name in :" + userRepository.findByNameIn(Lists.newArrayList("채명정","mj","jack")));
@@ -258,6 +260,33 @@ class UserRepositoryTest {
 
         userHistoryRepository.findAll().forEach(System.out::println);
 
+    }
+
+    @Test
+    void relationTest(){
+        User user = new User();
+
+        user.setName("david");
+        user.setEmail("david@naver.com");
+        user.setGender(Gender.MALE);
+
+        userRepository.save(user);
+
+        user.setName("daniel");
+        userRepository.save(user);
+
+        user.setEmail("daniel@naver.com");
+        userRepository.save(user);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+
+//        List<UserHistory> result = userHistoryRepository.findByUserId(userRepository.findByEmail("daniel@naver.com").getId());
+
+        List<UserHistory> result = userRepository.findByEmail("daniel@naver.com").getUserHistories();
+
+        result.forEach(System.out::println);
+
+        System.out.println("userHistory.getUser(): " + userHistoryRepository.findAll().get(0).getUser());
     }
 
 

@@ -40,7 +40,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByIdIsNotNull();
 
-    List<User> findByAddressesIsNotEmpty();
+//    List<User> findByAddressesIsNotEmpty();
 
     // In
     List<User> findByNameIn(List<String> names); // 인절이기 때문에 이터레이터 타입인 리스트가 파라미터로 들어가고 제네릭 값으로 네임의 타입인 String 이 들어간다.

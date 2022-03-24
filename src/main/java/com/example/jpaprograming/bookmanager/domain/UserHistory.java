@@ -12,7 +12,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-//@EntityListeners(value = AuditingEntityListener.class)
 @Entity
 @Data
 @NoArgsConstructor
@@ -24,18 +23,11 @@ public class UserHistory extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
-
     private String name;
 
     private String email;
 
-//    @CreatedDate
-//    private LocalDateTime createdAt;
-//
-//    @LastModifiedDate
-//    private LocalDateTime updatedAt;
-
-
+    @ManyToOne
+    private User user; // 기존 join컬럼으로 가지고 있던 userId 삭제
 
 }
