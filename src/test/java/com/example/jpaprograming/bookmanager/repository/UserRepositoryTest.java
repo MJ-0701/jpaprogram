@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
 @SpringBootTest
+@Transactional
 class UserRepositoryTest {
 
     @Autowired
@@ -249,7 +251,7 @@ class UserRepositoryTest {
     void userHistoryTest(){
         User user = new User();
 
-        user.setEmail("jack2718-new@naver.com");
+        user.setEmail("jack2718new@naver.com");
         user.setName("new-mj");
 
         userRepository.save(user);

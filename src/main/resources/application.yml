@@ -3,9 +3,9 @@ spring:
   h2:
     console:
       enabled: true
-  datasource:
-    hikari:
-      jdbc-url: jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
+#  datasource:
+#    hikari:
+#      jdbc-url: jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
 
   jpa:
     show-sql: true
@@ -18,12 +18,14 @@ spring:
     generate-ddl: true
     defer-datasource-initialization: true # 스프링부트 2.5 버전 이상부터는 하이버네이트가 초기화 되기 전에 data.sql이 먼저 실행 되므로 이설정을 해주지 않으면 테이블을 생성하기 전에 쿼리문이 실행되어 에러가 반환됨.
 
+
+
 # mysql db
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/test?useSSl=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: root
+  datasource:
+    url: jdbc:mysql://localhost:3306/book_manager?useSSl=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
 
 
 # maria db
